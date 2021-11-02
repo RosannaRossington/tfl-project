@@ -34,6 +34,13 @@ html, body {
   flex-direction: column;
 }
 
+.mainSection {
+  & > header{
+    color: red;
+    padding: 12px 0;
+    text-align: center;
+  }
+}
 .menu {
   display: table;
 	justify-content: space-evenly;
@@ -56,13 +63,20 @@ menu .col {
   display: table-cell;
 }
 
+.name {
+  display: inline-flex;
+  & > p {
+    margin: 0;
+  }
+}
+
 .noDelays {
   color: green;
+  
 }
 
 .delays {
   color: red;
-  display: inline-block;
   &::before {
     display: inline-block;
       content: '';
