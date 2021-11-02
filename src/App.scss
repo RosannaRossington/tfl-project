@@ -7,7 +7,7 @@
 :root {
   --tfl-blue: #0119a9;
   --tfl-beige: #f9f5e1;
-  --border-style: 2px solid var(var(--tfl-blue));
+  --border-style: 2px solid var(--tfl-blue);
   --icon-style: {
     display: inline-block;
     content: '';
@@ -35,32 +35,80 @@ html, body {
 }
 
 .menu {
-	display: flex;
-	flex-wrap: wrap;
+  display: table;
 	justify-content: space-evenly;
 	width: 33%;
 	margin: 0 auto;
 	padding: 0.5em;
-	background-color: white;
-  & > tr {
-    
+  border-top: var(--border-style);
+	border-bottom: var(--border-style);
+  & > .row {
+    display: flex;
+    justify-content: space-around;
+    text-transform: capitalize;
+    margin: 8px 0;
   }
+}
+menu > * {
+  display: table-row;
+}
+menu .col {
+  display: table-cell;
 }
 
 .noDelays {
-
+  color: green;
 }
 
 .delays {
-
+  color: red;
+  display: inline-block;
+  &::before {
+    display: inline-block;
+      content: '';
+      width: 24px;
+      height: 24px;
+      margin-right: 0.5em;
+      background-size: cover;
+      background-position: center;
+      vertical-align: bottom;
+      background-image: url(./icons/delay.png);
+    }
 }
 
-.night {
+  #day {
+    &::before {
+      display: inline-block;
+      content: '';
+      width: 32px;
+      height: 32px;
+      margin-right: 0.5em;
+      background-size: cover;
+      background-position: center;
+      vertical-align:middle;
+      background-image: url(./icons/day.png);
+    }
+  }
+  #night {
+    &::before {
+    display: inline-block;
+      content: '';
+      width: 24px;
+      height: 24px;
+      margin-right: 0.5em;
+      background-size: cover;
+      background-position: center;
+      vertical-align: bottom;
+      background-image: url(./icons/night.png);
+    }
+  }
 
-}
-
-.day {
-
+.headerTitle {
+  font-size: 18px;
+  line-height: 1.5;
+  padding: 8px 0;
+  font-weight: bold;
+  margin: 0 auto;
 }
 
 .title {
