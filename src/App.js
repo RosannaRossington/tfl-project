@@ -1,28 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './App.scss';
 
 const App = () => {
   const [tflServices, setTflServices] = useState([]);
   const [statusSeverity, setStatusSeverity] = useState(false);
+  const [linesDisrupted, setLinesDisrupted] = useState(false);
 
-  const getServiceDisruption = () => {
+  const getLineClosures = useEffect(() => {
     return fetch(
       'https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr/Status?detail=true'
     )
       .then((response) => response.json())
-      .then((data)=>{
-        const statusSeverity = data.map((d)=>{
-          return d.lineStatuses.statusSeverity !== 10
-          //if there is a false in the array then there is an issue 
+      .then((data) => {
+        const statusSeverity = data.map((d) => {
+          return d.lineStatuses[0].statusSeverity !== 10;
+          //if there is a false in the array then there is an issue
         });
-        statusSeverity.includes(false) ? setStatusSeverity(false) :  setStatusSeverity(true)
-        console.log(statusSeverity, 'statusSeverity')
-        })
-  }
+        if (statusSeverity.includes(false)) {
+          setStatusSeverity(false);
+          const linesDisrupted = data.map((d) => {
+            if (d.lineStatuses[0].statusSeverity !== 10) {
+              let disruptions = {
+                line: d.name,
+                status: d.lineStatuses[0].statusSeverity !== 10 ? d.lineStatuses[0].statusSeverityDescription : null
+              } 
+              return disruptions;
+            }
+            return []
+          });
+          setLinesDisrupted(linesDisrupted);
+          console.log(linesDisrupted)
+        } else {
+          setStatusSeverity(true);
+        }
+      });
+    }, []);
 
-  useEffect(()=>{
-    getServiceDisruption();
-  })
 
   useEffect(() => {
     return fetch(
@@ -47,18 +60,28 @@ const App = () => {
       .catch((error) => {
         console.log('Error:', error);
       });
+  }, [ tflServices]);
 
-
-  }, [tflServices]);
 
   return (
     <div className='App'>
       <h1 className='title'>TFL</h1>
-      {statusSeverity && (
-        <section className='mainSection'>
+      <section className='mainSection'>
+        {statusSeverity ? (
           <header>“No Service Disruptions”</header>
-        </section>
-      )}
+        ) : (
+          <header>“Service currently suffering disruptions:”</header>
+        )}
+        {linesDisrupted.length > 0 &&
+          linesDisrupted.map((l) => {  
+            return (
+            <>
+            {l.status && l.line && <div>{l.status} {l.line}</div>}
+            </> 
+          )
+        })}
+
+      </section>
 
       <p className='subTitle'>Existing Services</p>
       <section className='menu'>
