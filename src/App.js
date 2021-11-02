@@ -6,7 +6,7 @@ const App = () => {
   const [statusSeverity, setStatusSeverity] = useState(false);
   const [linesDisrupted, setLinesDisrupted] = useState(false);
 
-  const getLineClosures = useEffect(() => {
+  useEffect(() => {
     return fetch(
       'https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr/Status?detail=true'
     )
@@ -62,7 +62,16 @@ const App = () => {
       });
   }, [ tflServices]);
 
-
+const handleCycleHire = async () => {
+  try {
+    let response = await fetch(
+      'https://api.tfl.gov.uk/BikePoint/Search?query=regent'
+    )
+    console.log(response.json(response), 'res')
+  }catch(e){
+      return e
+    }
+}
   return (
     <div className='App'>
       <h1 className='title'>TFL</h1>
@@ -106,6 +115,23 @@ const App = () => {
             );
           })}
       </section>
+
+      {<section className='cycleHire'>
+      <form onSubmit={(e) => {
+                  e.preventDefault();
+                  handleCycleHire();
+                }}>
+                   <input
+                  type='text'
+                  placeholder='Search Bicycle'
+                  id='bike'
+                  // onChange={}
+                />
+                <button className={`button discoverButton`} type='submit'>
+                Discover Cycle Hire 
+                </button>
+                </form>
+      </section> }
     </div>
   );
 };

@@ -76,6 +76,33 @@ menu .col {
 li {
   list-style-type: none;
 }
+
+.cycleHire {
+  display: flex;
+    flex-direction: row;
+  
+    justify-content: space-around;
+    width: 33%;
+    margin: 0 auto;
+}
+
+.button {
+  text-align: center;
+  border: 1px solid var(--tfl-blue);
+  cursor: pointer;
+  letter-spacing: 1px;
+  text-decoration: none;
+  padding: 12px 30px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: 12px 12px;
+  border-radius: 1px;
+  background-color: var(--tfl-beige);
+  color: var(--primary-white);
+  display: block;
+  margin: 40px 0;
+}
+
 .noDelays {
   color: green;
   
