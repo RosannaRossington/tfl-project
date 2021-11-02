@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+* {
+  box-sizing: border-box; 
+  /* include the padding and border in an element's total width and height */
+}
+
+:root {
+  --tfl-blue: #0119a9;
+  --tfl-beige: #f9f5e1;
+  --border-style: 2px solid var(var(--tfl-blue));
+  --icon-style: {
+    display: inline-block;
+    content: '';
+    width: 24px;
+    height: 24px;
+    margin-right: 0.5em;
+    background-position: bottom;
+    vertical-align: bottom;
+  }
+}
+
+html, body {
+  font-family: 'Roboto',Arial,Helvetica, sans-serif;
+  font-size: 16px;
+  background-color: var(--tfl-beige);
+  color: rgb(0, 0, 0);
+  width: 100vw;
+  height: 100vh;  
+  margin: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	width: 33%;
+	margin: 0 auto;
+	padding: 0.5em;
+	background-color: white;
+  & > tr {
+    
+  }
+}
+
+.noDelays {
+
+}
+
+.delays {
+
+}
+
+.night {
+
+}
+
+.day {
+
+}
+
+.title {
+  font-size: 32px;
+  line-height: 1.5;
+  padding: 8px 0;
+  font-weight: bold;
+  color: var(--tfl-blue);
+  border-bottom: var(--border-style);
+  margin: 0 auto;
+}
+
+.subTitle {
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.bodyText {
+  font-size: 16px;
+  letter-spacing: 0px;
+  line-height: 1.2;
+  margin: 16px 0;
+}
