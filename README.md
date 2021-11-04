@@ -1,3 +1,57 @@
+
+# TFL PROJECT
+A small single page web app that allows the user to access information regarding London’s transportation
+
+<img width="843" alt="TFL" src="https://user-images.githubusercontent.com/17074304/140276570-724de86d-0bda-46cd-90a1-2ee25a4d023c.png">
+
+## Menu:
+- Shows TFL services in a menu format retrieved using the TFL api
+Get Service Status Request:
+GET
+https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr/Status?detail=true
+Response:
+An array of objects, each representing a tfl service and its status detail
+
+- Displays the name value from the service object
+- Next to the name there is a visual cue if the services operate in the evenings/night - this is given by any object in the serviceTypes array that has a
+value of “Night”
+- Also next to the name of the service there is a visual cue if the service is facing a disruption - this is determined through any object in the lineStatuses array that has a statusSeverity value that’s a different value than 10
+
+## Main Section:
+
+- A header shows “No Service Disruptions” if no object in the lineStatuses array has a statusSeverity value that’s a different value than 10
+
+- A header showing “Service currently suffering disruptions”, followed by a list of every current disruption’s description, extracted from the reason value on each
+object inside the lineStatuses array with a statusSeverity value different than 10
+
+## Cycle Hire Option:
+- A Cycle Hire option appears after all the other services, it is a button that calls
+
+Search Bike Points Request:
+GET https://api.tfl.gov.uk/BikePoint/Search?query=regent
+Response:
+An array of objects, each representing a bike point that matched the
+search term. Empty array if none was found.
+
+## TODO
+
+■ The menu items will be ordered firstly by modeName & then by name <- potentially using React HOC to add functionality to the list
+
+■ Add search box where the user can enter a text and have returned the bike points that match the search.
+
+■ The main content section at the top will clear the Line Disruption and display the results of this search as a list,
+showing the id of the bike point followed by its commonName value and then by its coordinates, eg: 76 Great Portland Street, (55.533595, -0.1344083)
+
+■ If there are no search results - a header saying “No bike points found for ‘search term’”
+
+■ Add some level of caching if the user uses the same term <- useCallBack potentially
+
+■ Persist this on refresh <-- potentially using local storage 
+
+■ Refactor to show example with Redux
+
+■ Improve UI
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
